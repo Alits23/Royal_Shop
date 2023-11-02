@@ -93,7 +93,7 @@ class ProductItem extends StatelessWidget {
                   ],
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  padding: const EdgeInsets.symmetric(horizontal: 5),
                   child: Row(
                     children: [
                       const Text(
@@ -121,7 +121,7 @@ class ProductItem extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            '48،000،000',
+                            '48،888،888',
                             style: TextStyle(
                               color: CustomColors.white,
                               fontFamily: 'sm',
