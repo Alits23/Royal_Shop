@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:royal_shop/constants/colors.dart';
+import 'package:royal_shop/widgets/product_item.dart';
 
-class CategoryScreen extends StatelessWidget {
-  const CategoryScreen({super.key});
+import '../constants/colors.dart';
+
+class ProductListScreen extends StatelessWidget {
+  const ProductListScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +31,7 @@ class CategoryScreen extends StatelessWidget {
                       Image.asset('assets/images/icon_apple_blue.png'),
                       const Expanded(
                         child: Text(
-                          'دسته بندی',
+                          'پرفروش ترین ها',
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontFamily: 'sb',
@@ -54,18 +56,14 @@ class CategoryScreen extends StatelessWidget {
                 delegate: SliverChildBuilderDelegate(
                   childCount: 20,
                   (context, index) {
-                    return Container(
-                      decoration: BoxDecoration(
-                        color: CustomColors.blue,
-                        borderRadius: BorderRadius.circular(15.0),
-                      ),
-                    );
+                    return const ProductItem();
                   },
                 ),
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                   crossAxisSpacing: 20,
                   mainAxisSpacing: 20,
+                  childAspectRatio: 2 / 2.8,
                 ),
               ),
             ),
