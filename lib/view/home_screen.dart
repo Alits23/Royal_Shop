@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:royal_shop/constants/colors.dart';
 import 'package:royal_shop/widgets/banner_slider.dart';
+import 'package:royal_shop/widgets/category_item.dart';
 
 import '../widgets/product_item.dart';
 
@@ -90,7 +91,7 @@ class HomeScreen extends StatelessWidget {
                         itemBuilder: (context, index) {
                           return const Padding(
                             padding: EdgeInsets.only(left: 20),
-                            child: CategoryShop(),
+                            child: CategoryItem(),
                           );
                         },
                       ),
@@ -209,60 +210,9 @@ class HomeScreen extends StatelessWidget {
       itemBuilder: (context, index) {
         return const Padding(
           padding: EdgeInsets.only(left: 20),
-          child: CategoryShop(),
+          child: CategoryItem(),
         );
       },
-    );
-  }
-}
-
-class CategoryShop extends StatelessWidget {
-  const CategoryShop({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Stack(
-          alignment: Alignment.center,
-          children: [
-            Container(
-              height: 56,
-              width: 56,
-              decoration: ShapeDecoration(
-                color: Colors.red,
-                shadows: const [
-                  BoxShadow(
-                    color: Colors.red,
-                    blurRadius: 25.0,
-                    spreadRadius: -12.0,
-                    offset: Offset(0.0, 15.0),
-                  ),
-                ],
-                shape: ContinuousRectangleBorder(
-                  borderRadius: BorderRadius.circular(40),
-                ),
-              ),
-            ),
-            const Icon(
-              Icons.apple,
-              color: Colors.white,
-              size: 36,
-            ),
-          ],
-        ),
-        const SizedBox(
-          height: 10,
-        ),
-        const Text(
-          'Apple',
-          style: TextStyle(
-            fontFamily: 'SB',
-          ),
-        ),
-      ],
     );
   }
 }
