@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:royal_shop/view/product_detail_screen.dart';
 import 'package:royal_shop/widgets/bottom_navigation.dart';
 
 void main() {
@@ -12,7 +13,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: BottomNavigation(),
+      home: ProductDetailScreen(),
     );
   }
 }
