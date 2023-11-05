@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 
 import 'package:royal_shop/constants/colors.dart';
+import 'package:royal_shop/view/card_screen.dart';
 import 'package:royal_shop/view/category_screen.dart';
 import 'package:royal_shop/view/home_screen.dart';
 import 'package:royal_shop/view/product_list_screen.dart';
@@ -190,7 +191,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
   List<Widget> _getScreens() {
     return <Widget>[
       const ProfileScreen(),
-      const ProductListScreen(),
+      const CardScreen(),
       const CategoryScreen(),
       const HomeScreen(),
     ];

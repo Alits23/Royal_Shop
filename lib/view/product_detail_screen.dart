@@ -311,7 +311,7 @@ class ProductDetailScreen extends StatelessWidget {
                       const SizedBox(
                         width: 10,
                       ),
-                      Image.asset('assets/images/icon_left_category.png'),
+                      Image.asset('assets/images/icon_left_categroy.png'),
                       const SizedBox(
                         width: 10,
                       ),
@@ -355,7 +355,7 @@ class ProductDetailScreen extends StatelessWidget {
                       const SizedBox(
                         width: 10,
                       ),
-                      Image.asset('assets/images/icon_left_category.png'),
+                      Image.asset('assets/images/icon_left_categroy.png'),
                       const SizedBox(
                         width: 10,
                       ),
@@ -399,7 +399,7 @@ class ProductDetailScreen extends StatelessWidget {
                       const SizedBox(
                         width: 10,
                       ),
-                      Image.asset('assets/images/icon_left_category.png'),
+                      Image.asset('assets/images/icon_left_categroy.png'),
                       const SizedBox(
                         width: 10,
                       ),
