@@ -7,6 +7,7 @@ import 'package:royal_shop/view/category_screen.dart';
 import 'package:royal_shop/view/home_screen.dart';
 import 'package:royal_shop/view/product_list_screen.dart';
 import 'package:royal_shop/view/profile_screen.dart';
+import 'package:royal_shop/view/register_screen.dart';
 
 class BottomNavigation extends StatefulWidget {
   const BottomNavigation({super.key});
@@ -190,7 +191,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
 
   List<Widget> _getScreens() {
     return <Widget>[
-      const ProfileScreen(),
+      const RegisterScreen(),
       const CardScreen(),
       const CategoryScreen(),
       const HomeScreen(),

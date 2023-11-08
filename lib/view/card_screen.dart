@@ -132,12 +132,18 @@ class CardItem extends StatelessWidget {
                             fontSize: 18.0,
                           ),
                         ),
+                        const SizedBox(
+                          height: 5.0,
+                        ),
                         const Text(
                           'گارانتی مادام العمر زیلینک',
                           style: TextStyle(
                               fontFamily: 'sm',
                               fontSize: 12.0,
                               color: CustomColors.gery),
+                        ),
+                        const SizedBox(
+                          height: 5.0,
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.end,
@@ -167,9 +173,11 @@ class CardItem extends StatelessWidget {
                             const Text('49،000،000'),
                           ],
                         ),
+                        const SizedBox(
+                          height: 5.0,
+                        ),
                         const Wrap(
                           children: [
-                            OptionCheap(),
                             OptionCheap(),
                           ],
                         ),
