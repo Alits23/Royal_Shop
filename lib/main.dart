@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:royal_shop/data/datasource/authentication_datasource.dart';
 import 'package:royal_shop/data/repository/authentication_repository.dart';
 import 'package:royal_shop/di/di.dart';
+import 'package:royal_shop/view/login_screen.dart';
 import 'package:royal_shop/view/product_detail_screen.dart';
 import 'package:royal_shop/widgets/bottom_navigation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: BottomNavigation(),
+      home: LoginScreen(),
     );
   }
 }
