@@ -22,9 +22,9 @@ class AuthenticationRepository extends IAuthRepository {
       String username, String password, String passwordConfirm) async {
     try {
       await _datasource.register(username, password, passwordConfirm);
-      return right('Done');
+      return right('ثبت نام انجام شد');
     } on ApiException catch (ex) {
-      return left(ex.message ?? ' null ');
+      return left(ex.message ?? ' خطای ناشناخته ');
     }
   }
 
@@ -39,8 +39,8 @@ class AuthenticationRepository extends IAuthRepository {
       } else {
         return left('خطایی در ورود رخ داده است');
       }
-    } on ApiException catch (ex) {
-      return left(ex.message ?? ' null ');
+    } on ApiException {
+      return left('نام کاربری یا رمز عبور اشتباه است');
     }
   }
 }
