@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:royal_shop/constants/colors.dart';
+import 'package:royal_shop/data/repository/category_repository.dart';
 
 class CategoryScreen extends StatelessWidget {
   const CategoryScreen({super.key});
@@ -44,6 +45,27 @@ class CategoryScreen extends StatelessWidget {
                     ],
                   ),
                 ),
+              ),
+            ),
+            SliverToBoxAdapter(
+              child: ElevatedButton(
+                onPressed: () async {
+                  var repository = CategoryRepository();
+                  var either = await repository.getCategories();
+                  either.fold(
+                    (l) {
+                      print(l);
+                    },
+                    (r) {
+                      r.forEach(
+                        (element) {
+                          print(element.title);
+                        },
+                      );
+                    },
+                  );
+                },
+                child: Text('get Data'),
               ),
             ),
             SliverPadding(
