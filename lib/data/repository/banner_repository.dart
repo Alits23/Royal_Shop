@@ -6,14 +6,14 @@ import 'package:royal_shop/di/di.dart';
 import '../../util/api_exception.dart';
 
 abstract class IBannerRepository {
-  Future<Either<String, List<Banner>>> getBanners();
+  Future<Either<String, List<BannerCampaign>>> getBanners();
 }
 
 class BannerRepository extends IBannerRepository {
   final IBannerDatasource _datasource = locator.get();
 
   @override
-  Future<Either<String, List<Banner>>> getBanners() async {
+  Future<Either<String, List<BannerCampaign>>> getBanners() async {
     try {
       var response = await _datasource.getBanners();
       return right(response);

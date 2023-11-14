@@ -4,11 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:royal_shop/constants/colors.dart';
 
 class CashedImage extends StatelessWidget {
-  CashedImage({super.key, this.imageUrl});
+  CashedImage({super.key, this.imageUrl, this.radius = 0});
   String? imageUrl;
+  double radius;
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
+      borderRadius: BorderRadius.circular(radius),
       child: CachedNetworkImage(
         fit: BoxFit.cover,
         imageUrl: imageUrl ??

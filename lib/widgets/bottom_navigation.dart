@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:royal_shop/bloc/catrgory/category_bloc.dart';
+import 'package:royal_shop/bloc/home/home_bloc.dart';
 import 'package:royal_shop/constants/colors.dart';
 import 'package:royal_shop/view/card_screen.dart';
 import 'package:royal_shop/view/category_screen.dart';
@@ -196,7 +197,10 @@ class _BottomNavigationState extends State<BottomNavigation> {
         create: (context) => CategoryBloc(),
         child: const CategoryScreen(),
       ),
-      HomeScreen(),
+      BlocProvider(
+        create: (context) => HomeBloc(),
+        child: HomeScreen(),
+      )
     ];
   }
 }

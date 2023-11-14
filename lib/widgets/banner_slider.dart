@@ -1,28 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:royal_shop/constants/colors.dart';
+import 'package:royal_shop/data/model/banner.dart';
+import 'package:royal_shop/widgets/cashed_image.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class BannerSlider extends StatelessWidget {
-  const BannerSlider({super.key});
+  List<BannerCampaign> bannerList;
+  BannerSlider(this.bannerList, {super.key});
 
   @override
   Widget build(BuildContext context) {
     PageController pageIndicatorController =
-        PageController(viewportFraction: 0.8);
+        PageController(viewportFraction: 0.9);
     return Stack(
       alignment: Alignment.bottomCenter,
       children: [
         SizedBox(
-          height: 200,
+          height: 177.0,
           child: PageView.builder(
             controller: pageIndicatorController,
-            itemCount: 3,
+            itemCount: bannerList.length,
             itemBuilder: (context, index) {
-              return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                child: Container(
-                  height: 200,
-                  color: CustomColors.gery,
+              return Container(
+                margin: EdgeInsets.symmetric(horizontal: 6.0),
+                child: CashedImage(
+                  imageUrl: bannerList[index].thumbnail,
+                  radius: 15.0,
                 ),
               );
             },
@@ -37,8 +40,8 @@ class BannerSlider extends StatelessWidget {
               activeDotColor: CustomColors.blueIndicator,
               dotColor: Colors.white,
               expansionFactor: 4.0,
-              dotHeight: 10.0,
-              dotWidth: 10.0,
+              dotHeight: 7.0,
+              dotWidth: 7.0,
             ),
           ),
         ),
