@@ -190,13 +190,13 @@ class _BottomNavigationState extends State<BottomNavigation> {
 
   List<Widget> _getScreens() {
     return <Widget>[
-      const RegisterScreen(),
-      const CardScreen(),
+      RegisterScreen(),
+      CardScreen(),
       BlocProvider(
         create: (context) => CategoryBloc(),
         child: const CategoryScreen(),
       ),
-      const HomeScreen(),
+      HomeScreen(),
     ];
   }
 }

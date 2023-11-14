@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:royal_shop/constants/colors.dart';
+import 'package:royal_shop/data/repository/banner_repository.dart';
 import 'package:royal_shop/widgets/banner_slider.dart';
 import 'package:royal_shop/widgets/category_item.dart';
 
@@ -16,6 +17,21 @@ class HomeScreen extends StatelessWidget {
             backgroundColor: CustomColors.backgroundScreenColor,
             body: CustomScrollView(
               slivers: [
+                SliverToBoxAdapter(
+                  child: ElevatedButton(
+                    onPressed: () async {
+                      var response = await BannerRepository().getBanners();
+                      response.fold((l) {
+                        print(l);
+                      }, (r) {
+                        r.forEach((element) {
+                          print(element.id);
+                        });
+                      });
+                    },
+                    child: Text('data'),
+                  ),
+                ),
                 SliverToBoxAdapter(
                   child: Padding(
                     padding: const EdgeInsets.only(
