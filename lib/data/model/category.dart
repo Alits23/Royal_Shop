@@ -19,7 +19,7 @@ class Category {
     return Category(
       jsonObject['collectionId'],
       jsonObject['color'],
-      jsonObject['icon'],
+      'http://startflutter.ir/api/files/${jsonObject['collectionId']}/${jsonObject['id']}/${jsonObject['icon']}',
       jsonObject['id'],
       'http://startflutter.ir/api/files/${jsonObject['collectionId']}/${jsonObject['id']}/${jsonObject['thumbnail']}',
       jsonObject['title'],

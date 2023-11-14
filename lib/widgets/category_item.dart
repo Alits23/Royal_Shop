@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:royal_shop/data/model/category.dart';
+import 'package:royal_shop/widgets/cashed_image.dart';
 
 class CategoryItem extends StatelessWidget {
-  const CategoryItem({
+  final Category category;
+  CategoryItem(
+    this.category, {
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
+    String categoryColor = 'ff${category.color}';
+    int hexColorCategories = int.parse(categoryColor, radix: 16);
     return Column(
       children: [
         Stack(
@@ -16,13 +22,13 @@ class CategoryItem extends StatelessWidget {
               height: 56,
               width: 56,
               decoration: ShapeDecoration(
-                color: Colors.red,
-                shadows: const [
+                color: Color(hexColorCategories),
+                shadows: [
                   BoxShadow(
-                    color: Colors.red,
+                    color: Color(hexColorCategories),
                     blurRadius: 25.0,
                     spreadRadius: -12.0,
-                    offset: Offset(0.0, 15.0),
+                    offset: const Offset(0.0, 15.0),
                   ),
                 ],
                 shape: ContinuousRectangleBorder(
@@ -30,11 +36,13 @@ class CategoryItem extends StatelessWidget {
                 ),
               ),
             ),
-            const Icon(
-              Icons.apple,
-              color: Colors.white,
-              size: 36,
-            ),
+            SizedBox(
+              width: 24.0,
+              height: 24.0,
+              child: CashedImage(
+                imageUrl: category.icon,
+              ),
+            )
           ],
         ),
         const SizedBox(
