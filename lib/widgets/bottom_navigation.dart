@@ -1,12 +1,11 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:royal_shop/bloc/catrgory/category_bloc.dart';
 import 'package:royal_shop/constants/colors.dart';
 import 'package:royal_shop/view/card_screen.dart';
 import 'package:royal_shop/view/category_screen.dart';
 import 'package:royal_shop/view/home_screen.dart';
-import 'package:royal_shop/view/product_list_screen.dart';
-import 'package:royal_shop/view/profile_screen.dart';
 import 'package:royal_shop/view/register_screen.dart';
 
 class BottomNavigation extends StatefulWidget {
@@ -193,7 +192,10 @@ class _BottomNavigationState extends State<BottomNavigation> {
     return <Widget>[
       const RegisterScreen(),
       const CardScreen(),
-      const CategoryScreen(),
+      BlocProvider(
+        create: (context) => CategoryBloc(),
+        child: const CategoryScreen(),
+      ),
       const HomeScreen(),
     ];
   }
