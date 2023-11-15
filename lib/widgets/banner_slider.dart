@@ -35,7 +35,7 @@ class BannerSlider extends StatelessWidget {
           bottom: 10,
           child: SmoothPageIndicator(
             controller: pageIndicatorController,
-            count: 3,
+            count: bannerList.length,
             effect: const ExpandingDotsEffect(
               activeDotColor: CustomColors.blueIndicator,
               dotColor: Colors.white,

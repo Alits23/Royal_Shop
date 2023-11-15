@@ -87,7 +87,6 @@ class _GetMostViewProduct extends StatelessWidget {
           child: ListView.builder(
             itemCount: 10,
             scrollDirection: Axis.horizontal,
-            reverse: true,
             itemBuilder: (context, index) {
               return const Padding(
                 padding: EdgeInsets.only(left: 20),
@@ -114,18 +113,6 @@ class _GetMostViewdTitle extends StatelessWidget {
             const EdgeInsets.only(right: 44, left: 44, bottom: 20, top: 32),
         child: Row(
           children: [
-            Image.asset('assets/images/icon_left_categroy.png'),
-            const SizedBox(
-              width: 10,
-            ),
-            const Text(
-              'مشاهده همه',
-              style: TextStyle(
-                fontFamily: 'sb',
-                color: CustomColors.blue,
-              ),
-            ),
-            const Spacer(),
             const Text(
               'پربازدید ترین ها',
               style: TextStyle(
@@ -134,6 +121,18 @@ class _GetMostViewdTitle extends StatelessWidget {
                 fontSize: 12,
               ),
             ),
+            const Spacer(),
+            const Text(
+              'مشاهده همه',
+              style: TextStyle(
+                fontFamily: 'sb',
+                color: CustomColors.blue,
+              ),
+            ),
+            const SizedBox(
+              width: 10,
+            ),
+            Image.asset('assets/images/icon_left_categroy.png'),
           ],
         ),
       ),
@@ -156,7 +155,6 @@ class _GetBestSellerProducts extends StatelessWidget {
           child: ListView.builder(
             itemCount: 10,
             scrollDirection: Axis.horizontal,
-            reverse: true,
             itemBuilder: (context, index) {
               return const Padding(
                 padding: EdgeInsets.only(left: 20),
@@ -182,18 +180,6 @@ class _GetBestSellerTitle extends StatelessWidget {
         padding: const EdgeInsets.only(right: 44, left: 44, bottom: 20),
         child: Row(
           children: [
-            Image.asset('assets/images/icon_left_categroy.png'),
-            const SizedBox(
-              width: 10,
-            ),
-            const Text(
-              'مشاهده همه',
-              style: TextStyle(
-                fontFamily: 'sb',
-                color: CustomColors.blue,
-              ),
-            ),
-            const Spacer(),
             const Text(
               'پرفروش ترین ها',
               style: TextStyle(
@@ -202,6 +188,18 @@ class _GetBestSellerTitle extends StatelessWidget {
                 fontSize: 12,
               ),
             ),
+            const Spacer(),
+            const Text(
+              'مشاهده همه',
+              style: TextStyle(
+                fontFamily: 'sb',
+                color: CustomColors.blue,
+              ),
+            ),
+            const SizedBox(
+              width: 10,
+            ),
+            Image.asset('assets/images/icon_left_categroy.png'),
           ],
         ),
       ),
@@ -226,7 +224,6 @@ class _GetCategoryList extends StatelessWidget {
           child: ListView.builder(
             itemCount: listCategory.length,
             scrollDirection: Axis.horizontal,
-            reverse: true,
             itemBuilder: (context, index) {
               return Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10.0),
@@ -249,7 +246,7 @@ class _GetCategoryListTitle extends StatelessWidget {
       child: Padding(
         padding: EdgeInsets.only(right: 44, left: 44, bottom: 20),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.end,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Text(
               'دسته بندی ها',
@@ -303,11 +300,14 @@ class _GetSearchBox extends StatelessWidget {
               const SizedBox(
                 width: 16.0,
               ),
-              Image.asset('assets/images/icon_apple_blue.png'),
+              Image.asset('assets/images/icon_search.png'),
+              const SizedBox(
+                width: 10.0,
+              ),
               const Expanded(
                 child: Text(
                   'جستجوی محصولات',
-                  textAlign: TextAlign.end,
+                  textAlign: TextAlign.start,
                   style: TextStyle(
                     fontFamily: 'sb',
                     color: CustomColors.gery,
@@ -315,10 +315,7 @@ class _GetSearchBox extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(
-                width: 10.0,
-              ),
-              Image.asset('assets/images/icon_search.png'),
+              Image.asset('assets/images/icon_apple_blue.png'),
               const SizedBox(
                 width: 16.0,
               ),

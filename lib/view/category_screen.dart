@@ -100,9 +100,7 @@ class _ListCategory extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverPadding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 44,
-      ),
+      padding: const EdgeInsets.only(left: 44.0, right: 44.0, bottom: 20),
       sliver: SliverGrid(
         delegate: SliverChildBuilderDelegate(
           childCount: list?.length ?? 0,

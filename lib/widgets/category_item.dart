@@ -37,10 +37,13 @@ class CategoryItem extends StatelessWidget {
               ),
             ),
             SizedBox(
-              width: 24.0,
-              height: 24.0,
-              child: CashedImage(
-                imageUrl: category.icon,
+              width: 24,
+              height: 24,
+              child: FittedBox(
+                fit: BoxFit.cover,
+                child: CashedImage(
+                  imageUrl: category.icon,
+                ),
               ),
             )
           ],
@@ -48,8 +51,8 @@ class CategoryItem extends StatelessWidget {
         const SizedBox(
           height: 10,
         ),
-        const Text(
-          'Apple',
+        Text(
+          '${category.title}',
           style: TextStyle(
             fontFamily: 'SB',
           ),

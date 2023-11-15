@@ -7,6 +7,7 @@ import 'package:royal_shop/constants/colors.dart';
 import 'package:royal_shop/view/card_screen.dart';
 import 'package:royal_shop/view/category_screen.dart';
 import 'package:royal_shop/view/home_screen.dart';
+import 'package:royal_shop/view/login_screen.dart';
 import 'package:royal_shop/view/register_screen.dart';
 
 class BottomNavigation extends StatefulWidget {
@@ -17,7 +18,7 @@ class BottomNavigation extends StatefulWidget {
 }
 
 class _BottomNavigationState extends State<BottomNavigation> {
-  int _selectedBottomNavigationItem = 0;
+  int _selectedBottomNavigationItem = 3;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -191,15 +192,18 @@ class _BottomNavigationState extends State<BottomNavigation> {
 
   List<Widget> _getScreens() {
     return <Widget>[
-      RegisterScreen(),
+      LoginScreen(),
       CardScreen(),
       BlocProvider(
         create: (context) => CategoryBloc(),
         child: const CategoryScreen(),
       ),
-      BlocProvider(
-        create: (context) => HomeBloc(),
-        child: HomeScreen(),
+      Directionality(
+        textDirection: TextDirection.rtl,
+        child: BlocProvider(
+          create: (context) => HomeBloc(),
+          child: HomeScreen(),
+        ),
       )
     ];
   }
