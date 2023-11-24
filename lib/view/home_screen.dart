@@ -35,43 +35,52 @@ class _HomeScreenState extends State<HomeScreen> {
           builder: (context, state) {
             return CustomScrollView(
               slivers: [
-                if (state is HomeLoadingState) ...[
+                if (state is HomeLoadingState) ...{
                   const SliverToBoxAdapter(
                     child: Center(child: CircularProgressIndicator()),
                   )
-                ],
-                const _GetSearchBox(),
-                if (state is HomeResponseState) ...[
-                  state.bannerList.fold((exceptionMessage) {
-                    return SliverToBoxAdapter(
-                      child: Text(exceptionMessage),
-                    );
-                  }, (bannerList) {
-                    return _GetBanners(bannerList);
-                  })
-                ],
-                const _GetCategoryListTitle(),
-                if (state is HomeResponseState) ...[
-                  state.categoryList.fold((exceptionMessage) {
-                    return SliverToBoxAdapter(
-                      child: Text(exceptionMessage),
-                    );
-                  }, (categoryList) {
-                    return _GetCategoryList(categoryList);
-                  })
-                ],
-                const _GetBestSellerTitle(),
-                if (state is HomeResponseState) ...[
-                  state.productList.fold((exceptionMessage) {
-                    return SliverToBoxAdapter(
-                      child: Text(exceptionMessage),
-                    );
-                  }, (productList) {
-                    return _GetBestSellerProducts(productList);
-                  })
-                ],
-                _GetMostViewdTitle(),
-                _GetMostViewProduct(),
+                } else ...{
+                  const _GetSearchBox(),
+                  if (state is HomeRequestSuccessState) ...[
+                    state.bannerList.fold((exceptionMessage) {
+                      return SliverToBoxAdapter(
+                        child: Text(exceptionMessage),
+                      );
+                    }, (bannerList) {
+                      return _GetBanners(bannerList);
+                    })
+                  ],
+                  const _GetCategoryListTitle(),
+                  if (state is HomeRequestSuccessState) ...[
+                    state.categoryList.fold((exceptionMessage) {
+                      return SliverToBoxAdapter(
+                        child: Text(exceptionMessage),
+                      );
+                    }, (categoryList) {
+                      return _GetCategoryList(categoryList);
+                    })
+                  ],
+                  const _GetMostViewdTitle(),
+                  if (state is HomeRequestSuccessState) ...[
+                    state.hotestProductList.fold((exceptionMessage) {
+                      return SliverToBoxAdapter(
+                        child: Text(exceptionMessage),
+                      );
+                    }, (productList) {
+                      return _GetMostViewProduct(productList);
+                    })
+                  ],
+                  const _GetBestSellerTitle(),
+                  if (state is HomeRequestSuccessState) ...[
+                    state.bestSellerProductList.fold((exceptionMessage) {
+                      return SliverToBoxAdapter(
+                        child: Text(exceptionMessage),
+                      );
+                    }, (productList) {
+                      return _GetBestSellerProducts(productList);
+                    })
+                  ],
+                },
               ],
             );
           },
@@ -82,7 +91,9 @@ class _HomeScreenState extends State<HomeScreen> {
 }
 
 class _GetMostViewProduct extends StatelessWidget {
-  const _GetMostViewProduct({
+  List<Product> productList;
+  _GetMostViewProduct(
+    this.productList, {
     super.key,
   });
 
@@ -94,12 +105,12 @@ class _GetMostViewProduct extends StatelessWidget {
         child: SizedBox(
           height: 200,
           child: ListView.builder(
-            itemCount: 10,
+            itemCount: productList.length,
             scrollDirection: Axis.horizontal,
             itemBuilder: (context, index) {
-              return const Padding(
-                padding: EdgeInsets.only(left: 20),
-                child: Text(' '),
+              return Padding(
+                padding: const EdgeInsets.only(left: 20),
+                child: ProductItem(productList[index]),
               );
             },
           ),
@@ -164,7 +175,7 @@ class _GetBestSellerProducts extends StatelessWidget {
         child: SizedBox(
           height: 200,
           child: ListView.builder(
-            itemCount: 10,
+            itemCount: productList.length,
             scrollDirection: Axis.horizontal,
             itemBuilder: (context, index) {
               return Padding(
@@ -188,7 +199,8 @@ class _GetBestSellerTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
       child: Padding(
-        padding: const EdgeInsets.only(right: 44, left: 44, bottom: 20),
+        padding:
+            const EdgeInsets.only(right: 44, left: 44, bottom: 20, top: 32),
         child: Row(
           children: [
             const Text(

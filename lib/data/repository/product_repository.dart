@@ -6,6 +6,8 @@ import '../../util/api_exception.dart';
 
 abstract class IProductRepository {
   Future<Either<String, List<Product>>> getProducts();
+  Future<Either<String, List<Product>>> getHotest();
+  Future<Either<String, List<Product>>> getBestSeller();
 }
 
 class ProductRepository extends IProductRepository {
@@ -14,6 +16,26 @@ class ProductRepository extends IProductRepository {
   Future<Either<String, List<Product>>> getProducts() async {
     try {
       var response = await _datasource.getProducts();
+      return right(response);
+    } on ApiException catch (ex) {
+      return left(ex.message ?? 'خطای ناشناخته');
+    }
+  }
+
+  @override
+  Future<Either<String, List<Product>>> getBestSeller() async {
+    try {
+      var response = await _datasource.getBestSeller();
+      return right(response);
+    } on ApiException catch (ex) {
+      return left(ex.message ?? 'خطای ناشناخته');
+    }
+  }
+
+  @override
+  Future<Either<String, List<Product>>> getHotest() async {
+    try {
+      var response = await _datasource.getHotest();
       return right(response);
     } on ApiException catch (ex) {
       return left(ex.message ?? 'خطای ناشناخته');
