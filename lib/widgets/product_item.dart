@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:royal_shop/data/model/product.dart';
+import 'package:royal_shop/widgets/cashed_image.dart';
 
 import '../constants/colors.dart';
 
@@ -30,7 +31,16 @@ class ProductItem extends StatelessWidget {
               const SizedBox(
                 width: double.infinity,
               ),
-              Image.asset('assets/images/iphone.png'),
+              SizedBox(
+                height: 98.0,
+                width: 98.0,
+                child: FittedBox(
+                  fit: BoxFit.fill,
+                  child: CashedImage(
+                    imageUrl: product.thumbnail,
+                  ),
+                ),
+              ),
               Positioned(
                 top: 0.0,
                 right: 10.0,
@@ -46,14 +56,14 @@ class ProductItem extends StatelessWidget {
                     color: CustomColors.red,
                     borderRadius: BorderRadius.circular(15.0),
                   ),
-                  child: const Padding(
-                    padding: EdgeInsets.symmetric(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
                       vertical: 2,
                       horizontal: 5,
                     ),
                     child: Text(
-                      '%3',
-                      style: TextStyle(
+                      '%${product.persent!.round()}',
+                      style: const TextStyle(
                         fontFamily: 'sb',
                         fontSize: 12,
                         color: CustomColors.white,
@@ -66,12 +76,13 @@ class ProductItem extends StatelessWidget {
           ),
           const Spacer(),
           Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
                 padding: const EdgeInsets.only(bottom: 10.0, right: 10.0),
                 child: Text(
-                  product.name!,
+                  product.name,
+                  overflow: TextOverflow.ellipsis,
                   style: const TextStyle(
                     fontFamily: 'sm',
                     fontSize: 14.0,
@@ -110,13 +121,13 @@ class ProductItem extends StatelessWidget {
                       const SizedBox(
                         width: 5,
                       ),
-                      const Column(
+                      Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            '49،000،000',
-                            style: TextStyle(
+                            product.price.toString(),
+                            style: const TextStyle(
                               color: CustomColors.white,
                               fontFamily: 'sm',
                               fontSize: 12,
@@ -124,8 +135,8 @@ class ProductItem extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            '48،888،888',
-                            style: TextStyle(
+                            product.realPrice.toString(),
+                            style: const TextStyle(
                               color: CustomColors.white,
                               fontFamily: 'sm',
                               fontSize: 16,
