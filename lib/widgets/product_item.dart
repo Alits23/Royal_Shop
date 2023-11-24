@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:royal_shop/data/model/product.dart';
 
 import '../constants/colors.dart';
 
 class ProductItem extends StatelessWidget {
-  const ProductItem({
+  Product product;
+  ProductItem(
+    this.product, {
     super.key,
   });
 
@@ -65,11 +68,11 @@ class ProductItem extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              const Padding(
-                padding: EdgeInsets.only(bottom: 10.0, right: 10.0),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 10.0, right: 10.0),
                 child: Text(
-                  'آیفون 13 پرومکس',
-                  style: TextStyle(
+                  product.name!,
+                  style: const TextStyle(
                     fontFamily: 'sm',
                     fontSize: 14.0,
                   ),

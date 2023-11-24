@@ -6,6 +6,7 @@ import 'package:royal_shop/bloc/home/home_state.dart';
 import 'package:royal_shop/constants/colors.dart';
 import 'package:royal_shop/data/model/banner.dart';
 import 'package:royal_shop/data/model/category.dart';
+import 'package:royal_shop/data/model/product.dart';
 import 'package:royal_shop/widgets/banner_slider.dart';
 import 'package:royal_shop/widgets/category_item.dart';
 
@@ -59,8 +60,16 @@ class _HomeScreenState extends State<HomeScreen> {
                     return _GetCategoryList(categoryList);
                   })
                 ],
-                _GetBestSellerTitle(),
-                _GetBestSellerProducts(),
+                const _GetBestSellerTitle(),
+                if (state is HomeResponseState) ...[
+                  state.productList.fold((exceptionMessage) {
+                    return SliverToBoxAdapter(
+                      child: Text(exceptionMessage),
+                    );
+                  }, (productList) {
+                    return _GetBestSellerProducts(productList);
+                  })
+                ],
                 _GetMostViewdTitle(),
                 _GetMostViewProduct(),
               ],
@@ -90,7 +99,7 @@ class _GetMostViewProduct extends StatelessWidget {
             itemBuilder: (context, index) {
               return const Padding(
                 padding: EdgeInsets.only(left: 20),
-                child: ProductItem(),
+                child: Text(' '),
               );
             },
           ),
@@ -141,7 +150,9 @@ class _GetMostViewdTitle extends StatelessWidget {
 }
 
 class _GetBestSellerProducts extends StatelessWidget {
-  const _GetBestSellerProducts({
+  List<Product> productList;
+  _GetBestSellerProducts(
+    this.productList, {
     super.key,
   });
 
@@ -156,9 +167,9 @@ class _GetBestSellerProducts extends StatelessWidget {
             itemCount: 10,
             scrollDirection: Axis.horizontal,
             itemBuilder: (context, index) {
-              return const Padding(
-                padding: EdgeInsets.only(left: 20),
-                child: ProductItem(),
+              return Padding(
+                padding: const EdgeInsets.only(left: 20),
+                child: ProductItem(productList[index]),
               );
             },
           ),

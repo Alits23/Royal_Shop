@@ -1,13 +1,13 @@
 class Product {
-  String category;
-  String collectionId;
-  String description;
-  String id;
-  String name;
-  String thumbnail;
-  int price;
-  int discountprice;
-  int quantity;
+  String? category;
+  String? collectionId;
+  String? description;
+  String? id;
+  String? name;
+  String? thumbnail;
+  int? price;
+  int? discountprice;
+  int? quantity;
 
   Product(
     this.id,

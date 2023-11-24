@@ -2,7 +2,6 @@ import 'package:dartz/dartz.dart';
 import 'package:royal_shop/data/datasource/product_datasource.dart';
 import 'package:royal_shop/data/model/product.dart';
 import 'package:royal_shop/di/di.dart';
-
 import '../../util/api_exception.dart';
 
 abstract class IProductRepository {
