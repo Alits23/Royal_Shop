@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:royal_shop/bloc/product_detil/product_bloc.dart';
 import 'package:royal_shop/data/model/product.dart';
 import 'package:royal_shop/view/product_detail_screen.dart';
 import 'package:royal_shop/widgets/cashed_image.dart';
@@ -18,7 +20,9 @@ class ProductItem extends StatelessWidget {
       onTap: () {
         Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (context) => ProductDetailScreen(),
+            builder: (context) => BlocProvider(
+                create: (context) => ProductBloc(),
+                child: const ProductDetailScreen()),
           ),
         );
       },
