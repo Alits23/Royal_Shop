@@ -6,6 +6,7 @@ import 'package:royal_shop/bloc/product_detil/product_bloc.dart';
 import 'package:royal_shop/bloc/product_detil/product_event.dart';
 import 'package:royal_shop/bloc/product_detil/product_state.dart';
 import 'package:royal_shop/data/model/product_image.dart';
+import 'package:royal_shop/data/model/variant_type.dart';
 import 'package:royal_shop/data/repository/product_detail_repository.dart';
 import 'package:royal_shop/di/di.dart';
 import 'package:royal_shop/widgets/cashed_image.dart';
@@ -93,7 +94,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                   ),
                 ),
                 if (state is ProductDetailResponseState) ...{
-                  state.getProductimage.fold((error) {
+                  state.productImages.fold((error) {
                     return SliverToBoxAdapter(
                       child: Text(error),
                     );
@@ -101,59 +102,23 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                     return GalleryWidget(productimages);
                   }),
                 },
-                SliverToBoxAdapter(
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                        top: 20.0, left: 44.0, right: 44.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        const Text(
-                          'انتخاب رنگ',
-                          style: TextStyle(
-                            fontFamily: 'sm',
-                            fontSize: 12,
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Container(
-                              margin: const EdgeInsets.only(left: 10.0),
-                              width: 26.0,
-                              height: 26.0,
-                              decoration: BoxDecoration(
-                                color: CustomColors.red,
-                                borderRadius: BorderRadius.circular(8.0),
-                              ),
-                            ),
-                            Container(
-                              margin: const EdgeInsets.only(left: 10.0),
-                              width: 26.0,
-                              height: 26.0,
-                              decoration: BoxDecoration(
-                                color: CustomColors.blue,
-                                borderRadius: BorderRadius.circular(8.0),
-                              ),
-                            ),
-                            Container(
-                              margin: const EdgeInsets.only(left: 10.0),
-                              width: 26.0,
-                              height: 26.0,
-                              decoration: BoxDecoration(
-                                color: CustomColors.green,
-                                borderRadius: BorderRadius.circular(8.0),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
+                if (state is ProductDetailResponseState) ...{
+                  state.productVariant.fold((error) {
+                    return SliverToBoxAdapter(
+                      child: Text(error),
+                    );
+                  }, (variantList) {
+                    for (var variant in variantList) {
+                      print(variant.variantType.title);
+                      for (var variantObject in variant.variantList) {
+                        print(variantObject.name);
+                      }
+                    }
+                    return SliverToBoxAdapter(
+                      child: Text('test'),
+                    );
+                  })
+                },
                 SliverToBoxAdapter(
                   child: Padding(
                     padding: const EdgeInsets.only(
@@ -483,6 +448,70 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
             ),
           );
         },
+      ),
+    );
+  }
+}
+
+class ColorVariant extends StatelessWidget {
+  VariantType variantType;
+  ColorVariant(
+    this.variantType, {
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return SliverToBoxAdapter(
+      child: Padding(
+        padding: const EdgeInsets.only(top: 20.0, left: 44.0, right: 44.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            Text(
+              variantType.title!,
+              style: const TextStyle(
+                fontFamily: 'sm',
+                fontSize: 12,
+              ),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Container(
+                  margin: const EdgeInsets.only(left: 10.0),
+                  width: 26.0,
+                  height: 26.0,
+                  decoration: BoxDecoration(
+                    color: CustomColors.red,
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                ),
+                Container(
+                  margin: const EdgeInsets.only(left: 10.0),
+                  width: 26.0,
+                  height: 26.0,
+                  decoration: BoxDecoration(
+                    color: CustomColors.blue,
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                ),
+                Container(
+                  margin: const EdgeInsets.only(left: 10.0),
+                  width: 26.0,
+                  height: 26.0,
+                  decoration: BoxDecoration(
+                    color: CustomColors.green,
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
