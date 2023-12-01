@@ -110,7 +110,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                       child: Text(error),
                     );
                   }, (productVariantList) {
-                    return VariantContainer(productVariantList);
+                    return VariantContainerGenerator(productVariantList);
                   })
                 },
                 SliverToBoxAdapter(
@@ -344,9 +344,9 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
   }
 }
 
-class VariantContainer extends StatelessWidget {
+class VariantContainerGenerator extends StatelessWidget {
   List<ProductVariant> productVariantList;
-  VariantContainer(
+  VariantContainerGenerator(
     this.productVariantList, {
     super.key,
   });
@@ -354,32 +354,15 @@ class VariantContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
-      child: Padding(
-        padding: const EdgeInsets.only(top: 20.0, left: 44.0, right: 44.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            Text(
-              productVariantList[0].variantType.title!,
-              style: const TextStyle(fontFamily: 'sm', fontSize: 12),
-            ),
-            const SizedBox(
-              height: 10.0,
-            ),
-            ColorVariantList(productVariantList[0].variantList),
-            const SizedBox(
-              height: 20.0,
-            ),
-            Text(
-              productVariantList[1].variantType.title!,
-              style: const TextStyle(fontFamily: 'sm', fontSize: 12),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            StorageVariantList(productVariantList[1].variantList)
-          ],
-        ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          for (var productVariant in productVariantList) ...{
+            if (productVariant.variantList.isNotEmpty) ...{
+              VariantGeneratorChild(productVariant)
+            }
+          },
+        ],
       ),
     );
   }
@@ -746,6 +729,36 @@ class _StorageVariantListState extends State<StorageVariantList> {
             return StorageWidgetList[index];
           },
         ),
+      ),
+    );
+  }
+}
+
+class VariantGeneratorChild extends StatelessWidget {
+  ProductVariant productVariant;
+  VariantGeneratorChild(this.productVariant, {super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.only(top: 20.0, right: 44.0, left: 44.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          Text(
+            productVariant.variantType.title!,
+            style: TextStyle(fontFamily: 'sm', fontSize: 12.0),
+          ),
+          SizedBox(
+            height: 10.0,
+          ),
+          if (productVariant.variantType.type == VariantTypeEnum.color) ...{
+            ColorVariantList(productVariant.variantList)
+          },
+          if (productVariant.variantType.type == VariantTypeEnum.storage) ...{
+            StorageVariantList(productVariant.variantList)
+          },
+        ],
       ),
     );
   }
