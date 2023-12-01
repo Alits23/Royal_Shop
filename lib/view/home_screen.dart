@@ -8,7 +8,7 @@ import 'package:royal_shop/data/model/banner.dart';
 import 'package:royal_shop/data/model/category.dart';
 import 'package:royal_shop/data/model/product.dart';
 import 'package:royal_shop/widgets/banner_slider.dart';
-import 'package:royal_shop/widgets/category_item.dart';
+import 'package:royal_shop/widgets/category_icon_item.dart';
 
 import '../widgets/product_item.dart';
 

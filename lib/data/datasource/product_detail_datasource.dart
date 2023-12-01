@@ -79,10 +79,10 @@ class ProductDetailDataSourceRemote extends IProductDetailDataSource {
     List<ProductVariant> productVariantList = [];
 
     for (var variantType in variantTypeList) {
-      var listVariant = variantList
+      var variant = variantList
           .where((element) => element.typeId == variantType.id)
           .toList();
-      productVariantList.add(ProductVariant(variantType, variantList));
+      productVariantList.add(ProductVariant(variantType, variant));
     }
     return productVariantList;
   }

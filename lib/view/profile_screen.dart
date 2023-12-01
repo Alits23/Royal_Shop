@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:royal_shop/constants/colors.dart';
-import 'package:royal_shop/widgets/category_item.dart';
+import 'package:royal_shop/widgets/category_icon_item.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
