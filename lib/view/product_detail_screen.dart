@@ -633,7 +633,7 @@ class _ColorVariantListState extends State<ColorVariantList> {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: SizedBox(
-        height: 26.0,
+        height: 30.0,
         child: ListView.builder(
           scrollDirection: Axis.horizontal,
           itemCount: widget.colorVarinatList.length,
@@ -648,15 +648,25 @@ class _ColorVariantListState extends State<ColorVariantList> {
               },
               child: Container(
                 margin: const EdgeInsets.only(left: 10.0),
-                width: 26.0,
-                height: 26.0,
+                padding: const EdgeInsets.all(1.0),
+                width: 30.0,
+                height: 30.0,
                 decoration: BoxDecoration(
                   border: Border.all(
-                    width: (selectedColor == index) ? 2 : 5,
-                    color: CustomColors.white,
+                    width: (selectedColor == index) ? 2 : 2,
+                    strokeAlign: BorderSide.strokeAlignOutside,
+                    color: (selectedColor == index)
+                        ? CustomColors.blueIndicator
+                        : CustomColors.white,
                   ),
-                  color: Color(hexColor),
+                  color: Colors.white,
                   borderRadius: BorderRadius.circular(8.0),
+                ),
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8.0),
+                    color: Color(hexColor),
+                  ),
                 ),
               ),
             );
@@ -676,37 +686,7 @@ class StorageVariantList extends StatefulWidget {
 }
 
 class _StorageVariantListState extends State<StorageVariantList> {
-  List<Widget> StorageWidgetList = [];
-  @override
-  void initState() {
-    for (var storageList in widget.storageVariants) {
-      var item = Container(
-        margin: const EdgeInsets.only(left: 10.0),
-        height: 25.0,
-        decoration: BoxDecoration(
-          color: CustomColors.white,
-          borderRadius: BorderRadius.circular(8.0),
-          border: Border.all(width: 1, color: CustomColors.gery),
-        ),
-        child: Center(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0),
-            child: Text(
-              storageList.name!,
-              style: const TextStyle(
-                fontFamily: 'sb',
-                fontSize: 12,
-              ),
-            ),
-          ),
-        ),
-      );
-
-      StorageWidgetList.add(item);
-    }
-    super.initState();
-  }
-
+  int selectedStorage = 0;
   @override
   Widget build(BuildContext context) {
     return Directionality(
@@ -715,9 +695,42 @@ class _StorageVariantListState extends State<StorageVariantList> {
         height: 26.0,
         child: ListView.builder(
           scrollDirection: Axis.horizontal,
-          itemCount: StorageWidgetList.length,
+          itemCount: widget.storageVariants.length,
           itemBuilder: (context, index) {
-            return StorageWidgetList[index];
+            return GestureDetector(
+              onTap: () {
+                setState(() {
+                  selectedStorage = index;
+                });
+              },
+              child: Container(
+                margin: const EdgeInsets.only(left: 10.0),
+                height: 25.0,
+                decoration: BoxDecoration(
+                  color: CustomColors.white,
+                  borderRadius: BorderRadius.circular(8.0),
+                  border: Border.all(
+                    width: (selectedStorage == index) ? 2 : 1,
+                    strokeAlign: BorderSide.strokeAlignOutside,
+                    color: (selectedStorage == index)
+                        ? CustomColors.blueIndicator
+                        : CustomColors.gery,
+                  ),
+                ),
+                child: Center(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                    child: Text(
+                      widget.storageVariants[index].name!,
+                      style: const TextStyle(
+                        fontFamily: 'sb',
+                        fontSize: 12,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            );
           },
         ),
       ),
