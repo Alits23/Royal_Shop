@@ -589,35 +589,24 @@ class PriceTagButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(15.0),
           ),
         ),
-        GestureDetector(
-          onTap: () async {
-            IProductDetailRepository repository = locator.get();
-            var response = await repository.getProductImage();
-            response.fold((l) {}, (r) {
-              r.forEach((element) {
-                print(element.imageUrl);
-              });
-            });
-          },
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(15.0),
-            child: BackdropFilter(
-              filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
-              child: Container(
-                width: 160,
-                height: 53,
-                decoration: BoxDecoration(
-                  color: Colors.transparent,
-                  borderRadius: BorderRadius.circular(15.0),
-                ),
-                child: const Center(
-                  child: Text(
-                    'افزودن به سبد خرید',
-                    style: TextStyle(
-                      color: CustomColors.white,
-                      fontFamily: 'sb',
-                      fontSize: 16.0,
-                    ),
+        ClipRRect(
+          borderRadius: BorderRadius.circular(15.0),
+          child: BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
+            child: Container(
+              width: 160,
+              height: 53,
+              decoration: BoxDecoration(
+                color: Colors.transparent,
+                borderRadius: BorderRadius.circular(15.0),
+              ),
+              child: const Center(
+                child: Text(
+                  'افزودن به سبد خرید',
+                  style: TextStyle(
+                    color: CustomColors.white,
+                    fontFamily: 'sb',
+                    fontSize: 16.0,
                   ),
                 ),
               ),
@@ -741,15 +730,15 @@ class VariantGeneratorChild extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(top: 20.0, right: 44.0, left: 44.0),
+      padding: const EdgeInsets.only(top: 20.0, right: 44.0, left: 44.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           Text(
             productVariant.variantType.title!,
-            style: TextStyle(fontFamily: 'sm', fontSize: 12.0),
+            style: const TextStyle(fontFamily: 'sm', fontSize: 12.0),
           ),
-          SizedBox(
+          const SizedBox(
             height: 10.0,
           ),
           if (productVariant.variantType.type == VariantTypeEnum.color) ...{
