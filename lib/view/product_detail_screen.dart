@@ -627,26 +627,7 @@ class ColorVariantList extends StatefulWidget {
 }
 
 class _ColorVariantListState extends State<ColorVariantList> {
-  List<Widget> colorWidgets = [];
-  @override
-  void initState() {
-    for (var colorVariant in widget.colorVarinatList) {
-      String productColor = 'ff${colorVariant.value}';
-      int hexColor = int.parse(productColor, radix: 16);
-      var item = Container(
-        margin: const EdgeInsets.only(left: 10.0),
-        width: 26.0,
-        height: 26.0,
-        decoration: BoxDecoration(
-          color: Color(hexColor),
-          borderRadius: BorderRadius.circular(8.0),
-        ),
-      );
-      colorWidgets.add(item);
-    }
-    super.initState();
-  }
-
+  int selectedColor = 0;
   @override
   Widget build(BuildContext context) {
     return Directionality(
@@ -655,9 +636,30 @@ class _ColorVariantListState extends State<ColorVariantList> {
         height: 26.0,
         child: ListView.builder(
           scrollDirection: Axis.horizontal,
-          itemCount: colorWidgets.length,
+          itemCount: widget.colorVarinatList.length,
           itemBuilder: (context, index) {
-            return colorWidgets[index];
+            String productColor = 'ff${widget.colorVarinatList[index].value}';
+            int hexColor = int.parse(productColor, radix: 16);
+            return GestureDetector(
+              onTap: () {
+                setState(() {
+                  selectedColor = index;
+                });
+              },
+              child: Container(
+                margin: const EdgeInsets.only(left: 10.0),
+                width: 26.0,
+                height: 26.0,
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    width: (selectedColor == index) ? 2 : 5,
+                    color: CustomColors.white,
+                  ),
+                  color: Color(hexColor),
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+              ),
+            );
           },
         ),
       ),
