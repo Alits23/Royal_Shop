@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:royal_shop/bloc/product_detil/product_bloc.dart';
 import 'package:royal_shop/bloc/product_detil/product_event.dart';
 import 'package:royal_shop/bloc/product_detil/product_state.dart';
+import 'package:royal_shop/data/model/product.dart';
 import 'package:royal_shop/data/model/product_image.dart';
 import 'package:royal_shop/data/model/product_variant.dart';
 import 'package:royal_shop/data/model/variant.dart';
@@ -16,7 +17,8 @@ import 'package:royal_shop/widgets/cashed_image.dart';
 import '../constants/colors.dart';
 
 class ProductDetailScreen extends StatefulWidget {
-  const ProductDetailScreen({super.key});
+  Product product;
+  ProductDetailScreen(this.product, {super.key});
 
   @override
   State<ProductDetailScreen> createState() => _ProductDetailScreenState();
@@ -25,7 +27,8 @@ class ProductDetailScreen extends StatefulWidget {
 class _ProductDetailScreenState extends State<ProductDetailScreen> {
   @override
   void initState() {
-    BlocProvider.of<ProductBloc>(context).add(ProductRequestData());
+    BlocProvider.of<ProductBloc>(context)
+        .add(ProductRequestData(widget.product.id));
     super.initState();
   }
 
@@ -101,7 +104,8 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                       child: Text(error),
                     );
                   }, (productimages) {
-                    return GalleryWidget(productimages);
+                    return GalleryWidget(
+                        widget.product.thumbnail, productimages);
                   }),
                 },
                 if (state is ProductDetailResponseState) ...{
@@ -370,8 +374,10 @@ class VariantContainerGenerator extends StatelessWidget {
 
 class GalleryWidget extends StatefulWidget {
   int selectedItem = 0;
+  String? defultProductThumbnail;
   List<ProductImage> productImageList;
   GalleryWidget(
+    this.defultProductThumbnail,
     this.productImageList, {
     super.key,
   });
@@ -418,10 +424,13 @@ class _GalleryWidgetState extends State<GalleryWidget> {
                       ),
                       const Spacer(),
                       SizedBox(
-                        height: double.infinity,
+                        height: 200.0,
+                        width: 200.0,
                         child: CashedImage(
-                          imageUrl: widget
-                              .productImageList[widget.selectedItem].imageUrl,
+                          imageUrl: (widget.productImageList.isEmpty)
+                              ? widget.defultProductThumbnail
+                              : widget.productImageList[widget.selectedItem]
+                                  .imageUrl,
                         ),
                       ),
                       const Spacer(),
@@ -430,44 +439,46 @@ class _GalleryWidgetState extends State<GalleryWidget> {
                   ),
                 ),
               ),
-              SizedBox(
-                height: 70,
-                child: Padding(
-                  padding:
-                      const EdgeInsets.only(left: 44.0, right: 44.0, top: 4.0),
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: widget.productImageList.length,
-                    itemBuilder: (context, index) {
-                      return GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            widget.selectedItem = index;
-                          });
-                        },
-                        child: Container(
-                          width: 70.0,
-                          height: 70.0,
-                          margin: const EdgeInsets.only(left: 20.0),
-                          padding: const EdgeInsets.all(4.0),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10.0),
-                            border:
-                                Border.all(width: 1, color: CustomColors.gery),
+              if (widget.productImageList.isNotEmpty) ...{
+                SizedBox(
+                  height: 70,
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                        left: 44.0, right: 44.0, top: 4.0),
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: widget.productImageList.length,
+                      itemBuilder: (context, index) {
+                        return GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              widget.selectedItem = index;
+                            });
+                          },
+                          child: Container(
+                            width: 70.0,
+                            height: 70.0,
+                            margin: const EdgeInsets.only(left: 20.0),
+                            padding: const EdgeInsets.all(4.0),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10.0),
+                              border: Border.all(
+                                  width: 1, color: CustomColors.gery),
+                            ),
+                            child: CashedImage(
+                              imageUrl: widget.productImageList[index].imageUrl,
+                              radius: 10,
+                            ),
                           ),
-                          child: CashedImage(
-                            imageUrl: widget.productImageList[index].imageUrl,
-                            radius: 10,
-                          ),
-                        ),
-                      );
-                    },
+                        );
+                      },
+                    ),
                   ),
                 ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
+                const SizedBox(
+                  height: 20,
+                ),
+              }
             ],
           ),
         ),

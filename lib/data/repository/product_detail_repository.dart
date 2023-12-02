@@ -8,7 +8,7 @@ import '../../util/api_exception.dart';
 import '../model/variant_type.dart';
 
 abstract class IProductDetailRepository {
-  Future<Either<String, List<ProductImage>>> getProductImage();
+  Future<Either<String, List<ProductImage>>> getProductImage(String productId);
   Future<Either<String, List<VariantType>>> getVariantTypes();
   Future<Either<String, List<ProductVariant>>> getproductVariants();
 }
@@ -16,9 +16,10 @@ abstract class IProductDetailRepository {
 class ProductDetailRepository extends IProductDetailRepository {
   final IProductDetailDataSource _dataSource = locator.get();
   @override
-  Future<Either<String, List<ProductImage>>> getProductImage() async {
+  Future<Either<String, List<ProductImage>>> getProductImage(
+      String productId) async {
     try {
-      var response = await _dataSource.getGallery();
+      var response = await _dataSource.getGallery(productId);
       return right(response);
     } on ApiException catch (ex) {
       return left(ex.message ?? 'خطای ناشناخته');
