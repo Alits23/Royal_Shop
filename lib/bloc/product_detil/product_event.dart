@@ -2,5 +2,6 @@ abstract class ProductEvent {}
 
 class ProductRequestData extends ProductEvent {
   String productId;
-  ProductRequestData(this.productId);
+  String categoryId;
+  ProductRequestData(this.productId, this.categoryId);
 }

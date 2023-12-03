@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:royal_shop/data/model/category.dart';
 import 'package:royal_shop/data/model/product_image.dart';
 import 'package:royal_shop/data/model/product_variant.dart';
 import 'package:royal_shop/data/model/variant.dart';
@@ -12,6 +13,7 @@ abstract class IProductDetailDataSource {
   Future<List<VariantType>> getVariantTypes();
   Future<List<Varinat>> getVariants();
   Future<List<ProductVariant>> getproductVariants();
+  Future<Category> getProductCategory(String categoryId);
 }
 
 class ProductDetailDataSourceRemote extends IProductDetailDataSource {
@@ -78,12 +80,40 @@ class ProductDetailDataSourceRemote extends IProductDetailDataSource {
 
     List<ProductVariant> productVariantList = [];
 
-    for (var variantType in variantTypeList) {
-      var variant = variantList
-          .where((element) => element.typeId == variantType.id)
-          .toList();
-      productVariantList.add(ProductVariant(variantType, variant));
+    try {
+      for (var variantType in variantTypeList) {
+        var variant = variantList
+            .where((element) => element.typeId == variantType.id)
+            .toList();
+        productVariantList.add(ProductVariant(variantType, variant));
+      }
+      return productVariantList;
+    } on DioException catch (ex) {
+      throw ApiException(
+        ex.response?.statusCode,
+        ex.response?.data['message'],
+      );
+    } catch (ex) {
+      throw ApiException(0, 'unknow error');
     }
-    return productVariantList;
+  }
+
+  @override
+  Future<Category> getProductCategory(String categoryId) async {
+    try {
+      Map<String, String> qParams = {'filter': 'id="$categoryId"'};
+      var response = await _dio.get(
+        'collections/category/records',
+        queryParameters: qParams,
+      );
+      return Category.fromMapjson(response.data['items'][0]);
+    } on DioException catch (ex) {
+      throw ApiException(
+        ex.response?.statusCode,
+        ex.response?.data['message'],
+      );
+    } catch (ex) {
+      throw ApiException(0, 'unknow error');
+    }
   }
 }

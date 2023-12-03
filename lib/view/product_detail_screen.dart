@@ -28,7 +28,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
   @override
   void initState() {
     BlocProvider.of<ProductBloc>(context)
-        .add(ProductRequestData(widget.product.id));
+        .add(ProductRequestData(widget.product.id, widget.product.categoryId));
     super.initState();
   }
 
@@ -48,42 +48,54 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                     ),
                   )
                 },
-                SliverToBoxAdapter(
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                        right: 44.0, left: 44.0, bottom: 32.0, top: 5.0),
-                    child: Container(
-                      height: 56.0,
-                      decoration: BoxDecoration(
-                        color: CustomColors.white,
-                        borderRadius: BorderRadius.circular(15.0),
-                      ),
-                      child: Row(
-                        children: [
-                          const SizedBox(
-                            width: 16.0,
-                          ),
-                          Image.asset('assets/images/icon_apple_blue.png'),
-                          const Spacer(),
-                          const Text(
-                            'آیفون',
-                            textAlign: TextAlign.end,
-                            style: TextStyle(
-                              fontFamily: 'sb',
-                              color: CustomColors.gery,
-                              fontSize: 16.0,
+                if (state is ProductDetailResponseState) ...{
+                  SliverToBoxAdapter(
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                          right: 44.0, left: 44.0, bottom: 32.0, top: 5.0),
+                      child: Container(
+                        height: 56.0,
+                        decoration: BoxDecoration(
+                          color: CustomColors.white,
+                          borderRadius: BorderRadius.circular(15.0),
+                        ),
+                        child: Row(
+                          children: [
+                            const SizedBox(
+                              width: 16.0,
                             ),
-                          ),
-                          const Spacer(),
-                          Image.asset('assets/images/icon_back.png'),
-                          const SizedBox(
-                            width: 16.0,
-                          ),
-                        ],
+                            Image.asset('assets/images/icon_apple_blue.png'),
+                            const Spacer(),
+                            state.productCategory.fold((l) {
+                              return const Text(
+                                'دسته بندی',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontFamily: 'sb',
+                                    fontSize: 16,
+                                    color: CustomColors.blue),
+                              );
+                            }, (productCategory) {
+                              return Text(
+                                productCategory.title!,
+                                textAlign: TextAlign.center,
+                                style: const TextStyle(
+                                    fontFamily: 'sb',
+                                    fontSize: 16,
+                                    color: CustomColors.blue),
+                              );
+                            }),
+                            const Spacer(),
+                            Image.asset('assets/images/icon_back.png'),
+                            const SizedBox(
+                              width: 16.0,
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
-                ),
+                },
                 const SliverToBoxAdapter(
                   child: Padding(
                     padding: EdgeInsets.only(bottom: 20),
