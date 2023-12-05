@@ -60,6 +60,16 @@ class _HomeScreenState extends State<HomeScreen> {
                       return _GetCategoryList(categoryList);
                     })
                   ],
+                  const _GetProductdTitle(),
+                  if (state is HomeRequestSuccessState) ...[
+                    state.productList.fold((exceptionMessage) {
+                      return SliverToBoxAdapter(
+                        child: Text(exceptionMessage),
+                      );
+                    }, (productList) {
+                      return _GetProductsList(productList);
+                    })
+                  ],
                   const _GetMostViewdTitle(),
                   if (state is HomeRequestSuccessState) ...[
                     state.hotestProductList.fold((exceptionMessage) {
@@ -205,6 +215,76 @@ class _GetBestSellerTitle extends StatelessWidget {
           children: [
             const Text(
               'پرفروش ترین ها',
+              style: TextStyle(
+                fontFamily: 'sb',
+                color: CustomColors.gery,
+                fontSize: 12,
+              ),
+            ),
+            const Spacer(),
+            const Text(
+              'مشاهده همه',
+              style: TextStyle(
+                fontFamily: 'sb',
+                color: CustomColors.blue,
+              ),
+            ),
+            const SizedBox(
+              width: 10,
+            ),
+            Image.asset('assets/images/icon_left_categroy.png'),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _GetProductsList extends StatelessWidget {
+  List<Product> productList;
+  _GetProductsList(
+    this.productList, {
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return SliverToBoxAdapter(
+      child: Padding(
+        padding: const EdgeInsets.only(right: 44.0),
+        child: SizedBox(
+          height: 200,
+          child: ListView.builder(
+            itemCount: productList.length,
+            scrollDirection: Axis.horizontal,
+            itemBuilder: (context, index) {
+              return Padding(
+                padding: const EdgeInsets.only(left: 20),
+                child: ProductItem(productList[index]),
+              );
+            },
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _GetProductdTitle extends StatelessWidget {
+  const _GetProductdTitle({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return SliverToBoxAdapter(
+      child: Padding(
+        padding:
+            const EdgeInsets.only(right: 44, left: 44, bottom: 20, top: 32),
+        child: Row(
+          children: [
+            const Text(
+              'محصولات',
               style: TextStyle(
                 fontFamily: 'sb',
                 color: CustomColors.gery,

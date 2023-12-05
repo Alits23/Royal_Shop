@@ -11,7 +11,8 @@ import '../model/variant_type.dart';
 abstract class IProductDetailRepository {
   Future<Either<String, List<ProductImage>>> getProductImage(String productId);
   Future<Either<String, List<VariantType>>> getVariantTypes();
-  Future<Either<String, List<ProductVariant>>> getproductVariants();
+  Future<Either<String, List<ProductVariant>>> getproductVariants(
+      String productId);
   Future<Either<String, Category>> getProductCategory(String categoryId);
 }
 
@@ -39,9 +40,10 @@ class ProductDetailRepository extends IProductDetailRepository {
   }
 
   @override
-  Future<Either<String, List<ProductVariant>>> getproductVariants() async {
+  Future<Either<String, List<ProductVariant>>> getproductVariants(
+      String productId) async {
     try {
-      var response = await _dataSource.getproductVariants();
+      var response = await _dataSource.getproductVariants(productId);
       return right(response);
     } on ApiException catch (ex) {
       return left(ex.message ?? 'خطای ناشناخته');
